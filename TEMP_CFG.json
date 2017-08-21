@@ -1,0 +1,14 @@
+{
+    "IC_TYPE" : "TEMP",
+    "X_COORD"  : "X",
+    "CHIP_NUM" : 178,
+    "BIN_NAME" : "SWBIN",
+    "UID_NAME" : "",
+    "MAX_RETEST_TIME" : 10,
+    "PASS_BIN" : 1,
+    "FIRST_DC_DATA_LABEL" : "Rdson/ohm",
+    "SITE" : "Site",
+    "TEST_TIME": "Time",
+    "KEY_WORD" : "-201",
+    "WORNG_BIN_LIST" : "WORNG_BIN_LIST.json"
+}

@@ -1,0 +1,308 @@
+<html>
+<head>
+<link href="http://www.francescomalagrino.com/BootstrapPageGenerator/3/css/bootstrap-combined.min.css" rel="stylesheet" media="screen">
+</head>
+<body>
+
+
+
+<div class="container-fluid">
+	<div class="row-fluid">
+		<div class="span12">
+			<div class="jumbotron well">
+				<h1>
+					{{name}}
+				</h1>
+				<h1>
+					DC数据自动分析报告
+				</h1>
+				<p>
+					这是由DC数据自动生成的比对报告，须人工核验DC数据是否准确、有效、全面，工具异常请联系 <a href="mailto:yuanjiexiong@goodix.com">yuanjiexiong@goodix.com</a>。
+				</p>
+				<p>
+					原始DC数据目录 : {{folderName}}
+				</p>
+				<p>
+					报告生成时间 : {{exportTime}}
+				</p>
+			</div>
+			<h2 class="text-left">
+				<strong>DC数据信息</strong>
+			</h2>
+			<table class="table table-condensed table-striped table-bordered table-hover">
+				<thead>
+					<tr>
+						<th>
+							目录
+						</th>
+						<th>
+							型号
+						</th>
+						<th>
+							有效文件
+						</th>
+						<th>
+							单片颗数
+						</th>
+						<th>
+							总测试数
+						</th>
+						<th>
+							首测良率
+						</th>
+						<th>
+							最终良率
+						</th>
+						<th>
+							各Site良率差
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					<!-- LABEL SUMMARY -->
+					<tr>
+
+						<td>
+							{{name}}
+						</td>
+						<td>
+							{{icType}}
+						</td>
+						<td>
+							{{stripNum}}
+						</td>
+						<td>
+							{{icNumofStrip}}
+						</td>
+						<td>
+							{{icNum}}
+						</td>
+						<td>
+							{{firstYieldRate}}
+						</td>
+						<td>
+							{{finalYieldRate}}
+						</td>
+						<td>
+							{{siteRateSub}}
+						</td>
+					</tr>
+					<!-- LABEL SUMMARY -->
+				</tbody>
+			</table>
+
+			{% if haveUid %}
+			<h4>
+				<strong>UID重复汇总:{{diffFileRepeatUid}}</strong>
+			</h4>
+			{% endif %}
+
+			<h2 class="text-left">
+				<strong>有效文件信息</strong>
+			</h2>
+
+			<table class="table table-condensed table-striped table-bordered table-hover">
+				<thead>
+					<tr>
+						<th>
+							名称排序
+						</th>
+						<th>
+							基板（晶圆）
+						</th>
+						<th>
+							测试时间
+						</th>
+						<th>
+							不测试品
+						</th>
+						<th>
+							首测不良
+						</th>
+						<th>
+							最终不良
+						</th>
+						<th>
+							最终良率
+						</th>
+						<th>
+							总次数
+						</th>
+						<th>
+							UID复测错乱行数
+						</th>
+						<th>
+							首测UID重复行数
+						</th>
+						<th>
+							换SITE
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+
+				<!-- LABEL FILE -->
+				{% for strip in strips %}
+					<tr>
+						<td>
+							{{strip.num}}
+						</td>
+						<td>
+							<a href="{{strip.file}}"target=_blank>{{strip.name}}</a>
+						</td>
+						<td>
+							{{strip.testTime}}
+						</td>
+						<td>
+							{{strip.packagingSkip}}
+						</td>
+						<td>
+							{{strip.firstTestFail}}
+						</td>
+						<td>
+							{{strip.failNum}}
+						</td>
+						<td>
+							{{strip.finalYieldRate}}
+						</td>
+						<td>
+							{{strip.testCount}}
+						</td>
+						<td>
+							{{strip.guessUidNotMatch}}
+						</td>
+						<td>
+							{{strip.guessUidRepeat}}
+						</td>
+						<td>
+							{{strip.siteDifferent}}
+						</td>
+					</tr>
+				{% endfor %}
+				<!-- LABEL FILE -->
+				</tbody>
+			</table>
+			</div>
+
+
+
+			<h2 class="text-left">
+				<strong>不良项目排序</strong>
+			</h2>
+			<table class="table table-condensed table-striped table-bordered table-hover">
+				<thead>
+					<tr>
+						<th>
+							不良BIN
+						</th>
+						<th>
+							含义
+						</th>
+						<th>
+							占总不良率
+						</th>
+						<th>
+							不良率
+						</th>
+						<th>
+							终测数目
+						</th>
+						<th>
+							首测数目
+						</th>
+
+					</tr>
+				</thead>
+				<tbody>
+				<!-- LABEL FAIL_BIN -->
+				{% for top in tops %}
+				<tr>
+					<td>
+						{{top.bin}}
+					</td>
+					<td>
+						{{top.name}}
+					</td>
+					<td>
+						{{top.rateOfFail}}
+					</td>
+					<td>
+						{{top.rate}}
+					</td>
+					<td>
+						{{top.num}}
+					</td>
+					<td>
+						{{top.firstNum}}
+					</td>
+
+				</tr>
+				{% endfor %}
+				<!-- LABEL FAIL_BIN -->
+			</tbody>
+			</table>
+
+			<h2 class="text-left">
+			<strong>各Site终测良率</strong>
+			</h2>
+
+			<table class="table table-condensed table-striped table-bordered table-hover">
+			<thead>
+				<tr>
+					<th>
+						Site
+					</th>
+					<th>
+						终测芯片数目
+					</th>
+					<th>
+						首测良率
+					</th>
+					<th>
+						最终良率
+					</th>
+					<th>
+						首测、终测良率差
+					</th>
+					<th>
+						终测-首测数目
+					</th>
+				</tr>
+			</thead>
+			<tbody>
+			<!-- LABEL SITE -->
+			{% for site in sites %}
+			<tr>
+				<td>
+					{{site.name}}
+				</td>
+				<td>
+					{{site.num}}
+				</td>
+				<td>
+					{{site.firstRate}}
+				</td>
+				<td>
+					{{site.finalRate}}
+				</td>
+				<td>
+					{{site.subRate}}
+				</td>
+				<td>
+					{{site.subFinalFirstNum}}
+				</td>
+			</tr>
+			{% endfor %}
+			<!-- LABEL SITE -->
+		</tbody>
+		</table>
+
+			<p>
+				无效文件：{% for skipFile in skipFileList %}<a href="{{skipFile.pathFileName}}"target=_blank>{{skipFile.fileName}}({{skipFile.errorReason}});</a>{% endfor %}
+			</p>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+</html>

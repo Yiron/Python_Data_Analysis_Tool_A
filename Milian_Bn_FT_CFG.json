@@ -1,0 +1,14 @@
+{
+    "IC_TYPE" : "MilianBn",
+    "X_COORD"  : "X",
+    "CHIP_NUM" : 108,
+    "BIN_NAME" : "BIN",
+    "UID_NAME" : "",
+    "MAX_RETEST_TIME" : 10,
+    "PASS_BIN" : 1,
+    "FIRST_DC_DATA_LABEL" : "DVCCIO_VALUE",
+    "SITE" : "SITE",
+    "TEST_TIME": "TIME",
+    "KEY_WORD" : "CSV",
+    "WORNG_BIN_LIST" : "WORNG_BIN_LIST.json"
+}
